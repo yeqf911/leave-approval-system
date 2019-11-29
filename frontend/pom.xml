@@ -74,6 +74,7 @@
                 <configuration>
                     <!-- 设置 nodejs 的版本-->
                     <nodeVersion>v12.13.1</nodeVersion>
+                    <nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>
                     <!-- 设置npm从淘宝镜像安装-->
                     <npmDownloadRoot>https://registry.npm.taobao.org/npm</npmDownloadRoot>
                 </configuration>
