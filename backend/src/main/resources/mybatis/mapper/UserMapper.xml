@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyx.las.dao.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.lyx.las.model.User">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="role" property="role"/>
+        <result column="access_token" property="accessToken"/>
+    </resultMap>
+
+    <select id="find" resultMap="BaseResultMap" parameterType="int">
+        select id, username, password, name, role
+        from users
+        where id = #{id}
+    </select>
+
+    <select id="findByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id, username, password, name, role, access_token
+        from users
+        where username = #{id}
+    </select>
+
+    <select id="findByAccessToken" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id, username, password, name, role
+        from users
+        where username = #{id}
+    </select>
+
+    <insert id="create" parameterType="com.lyx.las.model.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            users(id,username,password,name,role,access_token)
+        VALUES
+            (#{id},#{username},#{password},#{name},#{role},#{accessToken})
+    </insert>
+
+    <update id="update" parameterType="com.lyx.las.model.User">
+        UPDATE users set
+            username = #{username},
+            password = #{passwod},
+            name = #{name},
+            role = #{role},
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+</mapper>
