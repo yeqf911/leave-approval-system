@@ -18,6 +18,6 @@ public class ApplicationConfig implements WebMvcConfigurer {
         // 添加拦截器，配置拦截地址
         registry.addInterceptor(authenticationInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login");
+                .excludePathPatterns("/login", "/favicon.ico");
     }
 }
