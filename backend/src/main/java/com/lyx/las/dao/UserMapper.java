@@ -20,5 +20,5 @@ public interface UserMapper {
 
     User findByUsername(String username);
 
-    User findByAccessToken(String token);
+    User findByAccessToken(String accessToken);
 }

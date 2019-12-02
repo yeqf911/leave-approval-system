@@ -2,15 +2,18 @@ package com.lyx.las.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.lyx.las.helper.JsonViewHelper;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 参考 https://juejin.im/post/5c9193d9f265da60d63ea8dd
  */
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
 
     private int id;
 
@@ -23,11 +26,11 @@ public class User implements UserDetails {
     @NotBlank(message = "name cannot be blank")
     private String name;
 
-    private int role;
+    private String role;
 
     private String accessToken;
 
-    private List<Role> authorities;
+    private List<SimpleGrantedAuthority> authorities;
 
     @JsonView(JsonViewHelper.SimpleView.class)
     public int getId() {
@@ -68,8 +71,13 @@ public class User implements UserDetails {
     }
 
     @Override
-    public List<Role> getAuthorities() {
-        return null;
+    public List<SimpleGrantedAuthority> getAuthorities() {
+
+        if (this.authorities == null) {
+            this.authorities = new ArrayList<>();
+            this.authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role));
+        }
+        return this.authorities;
     }
 
     @JsonView(JsonViewHelper.DetailView.class)
@@ -91,15 +99,15 @@ public class User implements UserDetails {
     }
 
     @JsonView(JsonViewHelper.SimpleView.class)
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    @JsonView(JsonViewHelper.SimpleView.class)
+    @JsonView(JsonViewHelper.DetailView.class)
     public String getAccessToken() {
         return accessToken;
     }
@@ -108,7 +116,8 @@ public class User implements UserDetails {
         this.accessToken = accessToken;
     }
 
-    public void setAuthorities(List<Role> authorities) {
-        this.authorities = authorities;
-    }
+    @Override
+    public String toString() {
+        return "(" + id + "," + username + "," + password + "," + name + "," + role + "," + accessToken + ")";
+     }
 }

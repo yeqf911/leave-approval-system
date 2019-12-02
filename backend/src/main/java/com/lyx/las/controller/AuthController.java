@@ -1,36 +1,41 @@
 package com.lyx.las.controller;
 
-import com.lyx.las.LASApplication;
+import com.lyx.las.errors.Error_400;
 import com.lyx.las.model.User;
-import com.lyx.las.service.LoginService;
+import com.lyx.las.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class LoginController {
+public class AuthController {
 
     @Autowired
-    private LoginService loginService;
+    private AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> userInfo) {
-        String username = userInfo.get("username");
-        String password = userInfo.get("password");
+        String username = userInfo.getOrDefault("username", "");
+        String password = userInfo.getOrDefault("password", "");
 
-        User user = loginService.login(username, password);
+        if ("".equals(username) || "".equals(password)) {
+            throw new Error_400("username or password cannot be blank");
+        }
+
+        User user = authService.login(username, password);
 
         HttpHeaders responseHeaders = new HttpHeaders();
 
         responseHeaders.set("Access-Token", user.getAccessToken());
+        Map<String, String> body = new HashMap<>();
+        body.put("message", "success");
 
-        return ResponseEntity.ok().headers(responseHeaders).body(new HashMap<>());
+        return ResponseEntity.ok().headers(responseHeaders).body(body);
     }
 }

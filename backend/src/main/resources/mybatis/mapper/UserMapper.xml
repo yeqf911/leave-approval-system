@@ -14,7 +14,7 @@
     </resultMap>
 
     <select id="find" resultMap="BaseResultMap" parameterType="int">
-        select id, username, password, name, role
+        select id, username, password, name, role, access_token
         from users
         where id = #{id}
     </select>
@@ -22,13 +22,13 @@
     <select id="findByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
         select id, username, password, name, role, access_token
         from users
-        where username = #{id}
+        where username = #{username}
     </select>
 
     <select id="findByAccessToken" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select id, username, password, name, role
+        select id, username, password, name, role, access_token
         from users
-        where username = #{id}
+        where access_token = #{accessToken}
     </select>
 
     <insert id="create" parameterType="com.lyx.las.model.User" useGeneratedKeys="true" keyProperty="id">
