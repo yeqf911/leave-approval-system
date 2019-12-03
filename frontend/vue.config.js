@@ -1,14 +1,21 @@
 module.exports = {
   devServer: {
+    open: true,
+    host: "0.0.0.0",
+    port: 8080,
+    https: false,
     proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:8090',
+      "/api": {
+        target: "http://127.0.0.1:9090",
         ws: true,
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": "" //请求的时候使用这个api就可以
+        }
       }
     }
   },
 
-  outputDir: 'target/dist',
-  assetsDir: 'static'
+  outputDir: "target/dist",
+  assetsDir: "static"
 };

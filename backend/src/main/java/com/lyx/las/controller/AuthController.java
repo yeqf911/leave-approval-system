@@ -30,12 +30,9 @@ public class AuthController {
 
         User user = authService.login(username, password);
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-
-        responseHeaders.set("Access-Token", user.getAccessToken());
         Map<String, String> body = new HashMap<>();
-        body.put("message", "success");
+        body.put("access_token", user.getAccessToken());
 
-        return ResponseEntity.ok().headers(responseHeaders).body(body);
+        return ResponseEntity.ok().body(body);
     }
 }
