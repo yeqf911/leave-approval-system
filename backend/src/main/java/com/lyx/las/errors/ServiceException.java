@@ -3,12 +3,12 @@ package com.lyx.las.errors;
 public class ServiceException extends RuntimeException {
     protected Integer code;
 
-    protected String desc;
+    protected String message;
 
-    public ServiceException(Integer code, String desc) {
-        super(desc);
+    public ServiceException(Integer code, String message) {
+        super(message);
         this.code = code;
-        this.desc = desc;
+        this.message = message;
     }
 
     public Integer getCode() {
@@ -19,11 +19,11 @@ public class ServiceException extends RuntimeException {
         this.code = code;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getMessage() {
+        return message;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setMessage(String desc) {
+        this.message = desc;
     }
 }

@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping
     @JsonView(JsonViewHelper.SimpleView.class)
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('Admin')")
     public ResponseEntity<User> create(@Valid @RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new Error_400(JsonViewHelper.getErrorMessages(bindingResult.getAllErrors()));

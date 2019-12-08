@@ -1,17 +1,12 @@
 package com.lyx.las.intercept;
 
-import com.lyx.las.dao.UserMapper;
 import com.lyx.las.errors.Error_400;
 import com.lyx.las.errors.Error_401;
-import com.lyx.las.errors.Error_404;
-import com.lyx.las.model.User;
 import com.lyx.las.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -20,7 +15,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor {

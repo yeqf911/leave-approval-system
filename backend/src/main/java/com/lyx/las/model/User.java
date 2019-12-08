@@ -15,6 +15,11 @@ import java.util.List;
  */
 public class User implements UserDetails, Serializable {
 
+    public static final String ROLE_ADMIN = "Admin";
+    public static final String ROLE_TEACHER = "Teacher";
+    public static final String ROLE_STUDENT = "Student";
+    public static final String ROLE_INSTRUCTOR = "Instructor";
+
     private int id;
 
     @NotBlank(message = "username cannot be blank")

@@ -3,6 +3,7 @@ package com.lyx.las.service;
 import com.lyx.las.dao.UserMapper;
 import com.lyx.las.errors.Error_500;
 import com.lyx.las.helper.AccessTokenHelper;
+import com.lyx.las.model.Course;
 import com.lyx.las.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -43,5 +44,4 @@ public class UserService {
     public User findByAccessToken(String accessToken) {
         return userMapper.findByAccessToken(accessToken);
     }
-
 }

@@ -4,7 +4,6 @@ import com.lyx.las.errors.Error_400;
 import com.lyx.las.model.User;
 import com.lyx.las.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

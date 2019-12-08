@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyx.las.dao.LeaveRequestMapping">
+
+    <resultMap id="BaseResultMap" type="com.lyx.las.model.LeaveRequest">
+        <result column="id" property="id"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="assign_to_id" property="assignToId"/>
+        <result column="course_id" property="courseId"/>
+        <result column="submit_date" property="submitDate"/>
+        <result column="leave_since" property="leaveSince"/>
+        <result column="leave_until" property="leaveUntil"/>
+        <result column="period" property="period"/>
+        <result column="leave_days" property="leaveDays"/>
+        <result column="type" property="type"/>
+        <result column="reason" property="reason"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		id,creator_id,assign_to_id,course_id,submit_date,leave_since,leave_until,period,leave_days,type,reason,status
+	</sql>
+
+    <select id="getLeaveRequestByUserId" resultMap="BaseResultMap" parameterType="int">
+        select
+        <include refid="Base_Column_List" />
+        from leave_requests
+        where creator_id = #{creatorId}
+    </select>
+
+    <insert id="insertLeaveRequest" parameterType="com.lyx.las.model.LeaveRequest" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            leave_requests(id,creator_id,assign_to_id,course_id,submit_date,leave_since,leave_until,period,leave_days,type,reason,status)
+        VALUES
+            (#{id},#{creatorId},#{assignToId},#{courseId},#{submitDate},#{leaveSince},#{leaveUntil},#{period},#{leaveDays},#{type},#{reason},#{status})
+    </insert>
+
+    <select id="getLeaveRequestById" resultMap="BaseResultMap" parameterType="int">
+        select
+        <include refid="Base_Column_List" />
+        from leave_requests
+        where id = #{id}
+    </select>
+
+    <update id="updateLeaveRequest" parameterType="com.lyx.las.model.LeaveRequest">
+        UPDATE leave_requests SET
+            creator_id=#{creatorId},
+            assign_to_id=#{assignToId},
+            course_id=#{courseId},
+            submit_date=#{submitDate},
+            leave_since=#{leaveSince},
+            leave_until=#{leaveUntil},
+            period=#{period},
+            leave_days=#{leaveDays},
+            type=#{type},
+            reason=#{reason},
+            status=#{status}
+        WHERE
+            id=#{id}
+    </update>
+
+    <delete id="deleteLeaveRequest" parameterType="int">
+        DELETE FROM leave_requests WHERE id = #{id};
+    </delete>
+
+    <select id="getAllLeaveRequest" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM leave_requests;
+    </select>
+
+    <select id="getLeaveRequestsByAssignToId" resultMap="BaseResultMap" parameterType="int">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM leave_requests
+        WHERE assign_to_id=#{assignToId}
+    </select>
+
+</mapper>
