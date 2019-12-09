@@ -18,9 +18,11 @@ CREATE TABLE leave_requests
 (
     id     int(20)                                                                                                      NOT NULL AUTO_INCREMENT,
     creator_id int(20),
+    creator_name varchar(255),
     assign_to_id int(20),
     submit_date date,
     course_id int,
+    course_name varchar(255),
     leave_since date,
     leave_until date,
     period varchar(255),

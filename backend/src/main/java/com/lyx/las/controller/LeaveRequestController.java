@@ -33,7 +33,13 @@ public class LeaveRequestController {
     @GetMapping
     public ResponseEntity<List<LeaveRequest>> getUserLeaveRequests(Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
-        List<LeaveRequest> leaveRequests = leaveRequestService.getUserLeaveRequests(currentUser.getId());
+        List<LeaveRequest> leaveRequests;
+        if (currentUser.getRole().equals(User.ROLE_STUDENT)) {
+            leaveRequests = leaveRequestService.getUserLeaveRequests(currentUser.getId());
+        } else {
+            leaveRequests = leaveRequestService.getAllLeaveRequests();
+        }
+
         return ResponseEntity.ok().body(leaveRequests);
     }
 
@@ -41,6 +47,7 @@ public class LeaveRequestController {
     public ResponseEntity<LeaveRequest> addLeaveRequests(@RequestBody LeaveRequest leaveRequest, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
         leaveRequest.setCreatorId(currentUser.getId());
+        leaveRequest.setCreatorName(currentUser.getName());
         leaveRequestService.createLeaveRequest(leaveRequest);
         return new ResponseEntity<>(leaveRequest, HttpStatus.CREATED);
     }

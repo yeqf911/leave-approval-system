@@ -2,14 +2,12 @@
   <el-container class="home-container">
     <el-header>
       <div>
-        <img src="../assets/leave.png" alt="" />
+        <img src="../assets/leave.png" alt />
         <span>学生请假审批系统</span>
       </div>
       <div>
         <el-tag type="success">{{ userInfo.name }}</el-tag>
-        <el-button @click="logout" type="primary" icon="el-icon-switch-button"
-          >注销</el-button
-        >
+        <el-button @click="logout" type="primary" icon="el-icon-switch-button">注销</el-button>
       </div>
     </el-header>
     <el-container>

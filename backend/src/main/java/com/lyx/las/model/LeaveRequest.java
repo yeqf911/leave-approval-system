@@ -1,13 +1,14 @@
 package com.lyx.las.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class LeaveRequest {
     private int id;
     private int creatorId;
+    private String creatorName;
     private int assignToId;
     private int courseId;
+    private String courseName;
     private Date submitDate;
     private Date leaveSince;
     private Date leaveUntil;
@@ -16,7 +17,6 @@ public class LeaveRequest {
     private String type;
     private String reason;
     private Status status;
-    private List<Course> associatedCourses;
 
     public int getId() {
         return id;
@@ -34,6 +34,14 @@ public class LeaveRequest {
         this.creatorId = creatorId;
     }
 
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
     public int getAssignToId() {
         return assignToId;
     }
@@ -48,6 +56,14 @@ public class LeaveRequest {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public Date getSubmitDate() {
@@ -114,11 +130,4 @@ public class LeaveRequest {
         this.status = status;
     }
 
-    public List<Course> getAssociatedCourses() {
-        return associatedCourses;
-    }
-
-    public void setAssociatedCourses(List<Course> associatedCourses) {
-        this.associatedCourses = associatedCourses;
-    }
 }
