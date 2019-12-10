@@ -81,11 +81,13 @@ export default {
         .get("/api/users/self")
         .then(res => {
           this.userInfo = res.data;
+          window.sessionStorage.setItem("userRole", this.userInfo.role);
         })
         .catch(err => {
           console.log(err.response);
           this.$message.error("获取当前用户失败，请重新登录");
           window.sessionStorage.removeItem("Access-Token");
+          window.sessionStorage.removeItem("userRole");
           return this.$router.push("/login");
         });
     },

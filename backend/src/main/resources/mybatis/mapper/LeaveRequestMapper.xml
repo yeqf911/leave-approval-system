@@ -49,7 +49,7 @@
     <update id="updateLeaveRequest" parameterType="com.lyx.las.model.LeaveRequest">
         UPDATE leave_requests SET
             creator_id=#{creatorId},
-            creator_name=#{creatorName}
+            creator_name=#{creatorName},
             assign_to_id=#{assignToId},
             course_id=#{courseId},
             course_name=#{courseName},

@@ -48,6 +48,7 @@ public class LeaveRequestController {
         User currentUser = (User) authentication.getPrincipal();
         leaveRequest.setCreatorId(currentUser.getId());
         leaveRequest.setCreatorName(currentUser.getName());
+        leaveRequest.setStatus(Status.ASSIGNED_TO_INSTRUCTOR);
         leaveRequestService.createLeaveRequest(leaveRequest);
         return new ResponseEntity<>(leaveRequest, HttpStatus.CREATED);
     }
