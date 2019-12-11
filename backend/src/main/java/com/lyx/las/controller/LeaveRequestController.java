@@ -17,11 +17,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/leave_requests")
+@CrossOrigin(origins = "http://localhost:8080")
 public class LeaveRequestController {
 
     @Autowired
@@ -36,6 +38,8 @@ public class LeaveRequestController {
         List<LeaveRequest> leaveRequests;
         if (currentUser.getRole().equals(User.ROLE_STUDENT)) {
             leaveRequests = leaveRequestService.getUserLeaveRequests(currentUser.getId());
+        } else if (currentUser.getRole().equals(User.ROLE_TEACHER)) {
+            leaveRequests = leaveRequestService.getLeaveRequestsByAssignToId(currentUser.getId());
         } else {
             leaveRequests = leaveRequestService.getAllLeaveRequests();
         }
@@ -49,6 +53,9 @@ public class LeaveRequestController {
         leaveRequest.setCreatorId(currentUser.getId());
         leaveRequest.setCreatorName(currentUser.getName());
         leaveRequest.setStatus(Status.ASSIGNED_TO_INSTRUCTOR);
+        leaveRequest.setSubmitDate(new Date());
+        leaveRequest.setCourseName(courseMapper.getCourseNameById(leaveRequest.getCourseId()));
+        leaveRequest.setAssignToId(courseMapper.getTeacherByCourseId(leaveRequest.getCourseId()));
         leaveRequestService.createLeaveRequest(leaveRequest);
         return new ResponseEntity<>(leaveRequest, HttpStatus.CREATED);
     }
@@ -62,7 +69,7 @@ public class LeaveRequestController {
             throw new Error_404("leave request not found");
         }
 
-        if (leaveRequest.getStatus() != null) {
+        if (leaveRequest.getStatus() != Status.ASSIGNED_TO_INSTRUCTOR) {
             throw new Error_403("this leave request can not be updated");
         }
 
@@ -73,6 +80,7 @@ public class LeaveRequestController {
 
         String leaveSince = userInfo.getOrDefault("leaveSince", Utils.date2String(leaveRequest.getLeaveSince()));
         String leaveUntil = userInfo.getOrDefault("leaveUntil", Utils.date2String(leaveRequest.getLeaveUntil()));
+        String courseId = userInfo.getOrDefault("courseId", leaveRequest.getCourseId() + "");
         String leaveDays = userInfo.getOrDefault("leaveDays", leaveRequest.getLeaveDays() + "");
         String type = userInfo.getOrDefault("type", leaveRequest.getType());
         String reason = userInfo.getOrDefault("reason", leaveRequest.getReason());
@@ -85,6 +93,8 @@ public class LeaveRequestController {
         }
 
         leaveRequest.setLeaveDays(Integer.parseInt(leaveDays));
+        leaveRequest.setCourseId(Integer.parseInt(courseId));
+        leaveRequest.setCourseName(courseMapper.getCourseNameById(leaveRequest.getCourseId()));
         leaveRequest.setType(type);
         leaveRequest.setReason(reason);
 

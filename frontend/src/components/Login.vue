@@ -5,24 +5,16 @@
         <img src="../assets/logo.png" alt="avatar" />
       </div>
 
-      <el-form
-        :model="form"
-        :rules="rules"
-        label-width="0px"
-        class="login_form"
-        ref="form"
-      >
+      <el-form :model="form" :rules="rules" label-width="0px" class="login_form" ref="form">
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input
-            v-model="form.username"
-            prefix-icon="el-icon-user"
-          ></el-input>
+          <el-input v-model="form.username" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
           <el-input
             v-model="form.password"
+            @keyup.enter.native="login"
             prefix-icon="el-icon-lock"
             type="password"
           ></el-input>
@@ -42,8 +34,8 @@ export default {
   data() {
     return {
       form: {
-        username: "admin",
-        password: "admin"
+        username: "liyuxiao",
+        password: "123456"
       },
       rules: {
         username: [
@@ -70,7 +62,7 @@ export default {
         this.$http
           .post("/api/login", this.form)
           .then(res => {
-            this.$message.success("登陆成功");
+            this.$message.success("您已登录");
             // 登录成功将token保存在本地
             console.log(res);
 
@@ -78,6 +70,8 @@ export default {
               "Access-Token",
               res.data.access_token
             );
+
+            window.sessionStorage.setItem("userRole", res.data.user_role);
             // 跳转到 home 页面
             this.$router.push("/home");
           })

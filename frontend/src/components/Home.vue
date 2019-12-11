@@ -72,8 +72,22 @@ export default {
   },
   methods: {
     logout() {
-      window.sessionStorage.removeItem("Access-Token");
-      this.$router.push("/login");
+      this.$confirm("即将退出当前账号, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          window.sessionStorage.removeItem("Access-Token");
+          window.sessionStorage.removeItem("userRole");
+          this.$destroy();
+          this.$router.push("/login");
+          this.$message({
+            type: "success",
+            message: "您已登出"
+          });
+        })
+        .catch(() => {});
     },
 
     getCurrentUser() {
@@ -81,7 +95,7 @@ export default {
         .get("/api/users/self")
         .then(res => {
           this.userInfo = res.data;
-          window.sessionStorage.setItem("userRole", this.userInfo.role);
+          // window.sessionStorage.setItem("userRole", this.userInfo.role);
         })
         .catch(err => {
           console.log(err.response);

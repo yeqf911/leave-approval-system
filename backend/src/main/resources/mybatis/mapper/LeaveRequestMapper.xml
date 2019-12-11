@@ -65,7 +65,7 @@
             id=#{id}
     </update>
 
-    <delete id="deleteLeaveRequests" parameterType="int">
+    <delete id="deleteLeaveRequest" parameterType="int">
         DELETE FROM leave_requests WHERE id = #{id};
     </delete>
 
