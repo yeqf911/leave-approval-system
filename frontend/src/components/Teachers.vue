@@ -1,5 +1,12 @@
 <template>
-  <h3>老师</h3>
+  <div>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>任课教师列表</el-breadcrumb-item>
+    </el-breadcrumb>
+
+    <el-card class="box-card"></el-card>
+  </div>
 </template>
 
 <script lang="ts">

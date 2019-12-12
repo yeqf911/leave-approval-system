@@ -17,7 +17,12 @@
         </el-col>
       </el-row>
 
-      <el-table :data="leaveRequestsList" border stripe>
+      <el-table
+        :data="leaveRequestsList"
+        border
+        stripe
+        :default-sort="{prop: 'submitDate', order: 'descending'}"
+      >
         <el-table-column type="index" align="center"></el-table-column>
         <el-table-column
           v-if="this.userRole != 'Student'"
@@ -26,7 +31,7 @@
           width="80"
           align="center"
         ></el-table-column>
-        <el-table-column label="提交日期" width="100" align="center">
+        <el-table-column prop="submitDate" label="提交日期" width="100" sortable align="center">
           <template slot-scope="scope">{{scope.row.submitDate.split('T')[0]}}</template>
         </el-table-column>
         <el-table-column prop="type" label="请假类型" width="80" align="center"></el-table-column>
@@ -202,6 +207,16 @@
           <el-button type="primary" @click="updateLeaveRequest">确 定</el-button>
         </span>
       </el-dialog>
+      <div class="lr-detail">
+        <el-card class="box-card">
+          <el-steps :active="0" finish-status="success" simple>
+            <el-step title="辅导员审批中"></el-step>
+            <el-step title="学院审批中"></el-step>
+            <el-step title="任课教师审批中"></el-step>
+            <el-step title="审批通过"></el-step>
+          </el-steps>
+        </el-card>
+      </div>
     </el-card>
   </div>
 </template>
@@ -218,6 +233,7 @@ export default {
       dateRange: [],
       editRowIndex: 0,
       editRowId: 0,
+      showDetails: true,
       leaveRequestform: {
         leaveSince: "",
         leaveUntil: "",
@@ -387,4 +403,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.lr-detail {
+  margin-top: 20px;
+  // width: 50%;
+  // position: relative;
+  // transform: translate(50%, 0);
+}
+
+.el-steps {
+  margin: 20px;
+  // width: 50%;
+  // position: relative;
+  // transform: translate(50%, 0);
+}
 </style>
