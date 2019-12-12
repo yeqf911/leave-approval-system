@@ -17,7 +17,7 @@ public class Utils {
 
     public static String date2String(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT, Locale.CHINA);
-        formatter.setTimeZone(TimeZone.getTimeZone("GMT+0:00"));
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         return formatter.format(date);
     }
 }

@@ -60,6 +60,16 @@ public class LeaveRequestController {
         return new ResponseEntity<>(leaveRequest, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<LeaveRequest> getLeaveRequest(@PathVariable("id") int id, Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
+        LeaveRequest leaveRequest = leaveRequestService.getLeaveRequestById(id);
+        if (leaveRequest.getCreatorId() != currentUser.getId()) {
+            throw new Error_404("leave request not found");
+        }
+        return ResponseEntity.ok().body(leaveRequest);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<LeaveRequest> updateLeaveRequest(@PathVariable("id") int id,
                                                            @RequestBody Map<String, String> userInfo,
