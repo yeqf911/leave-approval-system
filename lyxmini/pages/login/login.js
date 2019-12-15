@@ -74,41 +74,36 @@ Page({
       });
     } else {
       // 这里请求登录接口
-      wx.request({
-        url: app.globalData.endPoint + "/login",
-        method: "POST",
-        data: {
+      app
+        .post("/login", {
           username: this.data.username,
           password: this.data.password
-        },
-        success(res) {
+        })
+        .then(res => {
+          console.log(res);
           wx.hideLoading();
           wx.showToast({
             title: "登录成功",
             icon: "success",
             duration: 2000
           });
-          console.log(res.data);
-          wx.setStorageSync("Access-Token", res.data.access_token);
+          wx.setStorageSync("Access-Token", res.access_token);
           wx.navigateTo({
             url: "../index/index"
           });
-        },
-        fail: (res => {
-          if (this._errorHandler != null) {
-            this._errorHandler(res)
-          }
+        })
+        .catch(res => {
+          console.log(res);
           wx.hideLoading();
           wx.showToast({
             title: "登录异常",
             icon: "none",
             duration: 1000
           });
-        })
-      });
+        });
       wx.showLoading({
         title: "登录中"
-      });  
+      });
     }
   }
 });

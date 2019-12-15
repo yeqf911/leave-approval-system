@@ -3,7 +3,6 @@ App({
   onLaunch: function() {
     // 展示本地存储能力
     // 设置服务器地址
-    this.globalData.endPoint = "http://127.0.0.1:9090";
     var logs = wx.getStorageSync("logs") || [];
     logs.unshift(Date.now());
     wx.setStorageSync("logs", logs);
@@ -36,6 +35,116 @@ App({
     });
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    endPoint: "http://127.0.0.1:9090",
+    myUserInfo: null
+  },
+
+  post: function(url, data) {
+    var promise = new Promise((resolve, reject) => {
+      var that = this;
+      var postData = data;
+      wx.request({
+        url: this.globalData.endPoint + url,
+        data: postData,
+        method: "POST",
+        header: {
+          "Content-Type": "application/json",
+          "Access-Token": wx.getStorageSync("Access-Token") || ""
+        },
+        success: function(res) {
+          if (res.statusCode >= 200 && res.statusCode < 400) {
+            resolve(res.data);
+          } else {
+            reject(res.data);
+          }
+        },
+        fail: function(err) {
+          reject("网络错误");
+        }
+      });
+    });
+    return promise;
+  },
+
+  get: function(url, data) {
+    var promise = new Promise((resolve, reject) => {
+      var that = this;
+      var postData = data;
+      wx.request({
+        url: this.globalData.endPoint + url,
+        data: postData,
+        method: "GET",
+        header: {
+          "Content-Type": "application/json",
+          "Access-Token": wx.getStorageSync("Access-Token") || ""
+        },
+        success: function(res) {
+          if (res.statusCode >= 200 && res.statusCode < 400) {
+            resolve(res.data);
+          } else {
+            reject(res.data);
+          }
+        },
+        fail: function(err) {
+          reject("网络错误");
+        }
+      });
+    });
+    return promise;
+  },
+
+  put: function(url, data) {
+    var promise = new Promise((resolve, reject) => {
+      var that = this;
+      var postData = data;
+      wx.request({
+        url: this.globalData.endPoint + url,
+        data: postData,
+        method: "PUT",
+        header: {
+          "Content-Type": "application/json",
+          "Access-Token": wx.getStorageSync("Access-Token") || ""
+        },
+        success: function(res) {
+          if (res.statusCode >= 200 && res.statusCode < 400) {
+            resolve(res.data);
+          } else {
+            reject(res.data);
+          }
+        },
+        fail: function(err) {
+          reject("网络错误");
+        }
+      });
+    });
+    return promise;
+  },
+
+  delete: function(url, data) {
+    var promise = new Promise((resolve, reject) => {
+      var that = this;
+      var postData = data;
+      wx.request({
+        url: this.globalData.endPoint + url,
+        data: postData,
+        method: "DELETE",
+        header: {
+          "Content-Type": "application/json",
+          "Access-Token": wx.getStorageSync("Access-Token") || ""
+        },
+        success: function(res) {
+          if (res.statusCode >= 200 && res.statusCode < 400) {
+            resolve(res.data);
+          } else {
+            reject(res.data);
+          }
+        },
+        fail: function(err) {
+          reject("网络错误");
+        }
+      });
+    });
+    return promise;
   }
 });

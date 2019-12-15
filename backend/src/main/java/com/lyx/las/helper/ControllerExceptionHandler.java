@@ -26,35 +26,35 @@ public class ControllerExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, Object> handlerError_400(Error_400 exception) {
-        return makeErrorResponse(exception, "Bad Request");
+        return makeErrorResponse(exception, "400 Bad Request");
     }
 
     @ExceptionHandler(Error_401.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Map<String, Object> handlerError_401(Error_401 exception) {
-        return makeErrorResponse(exception, "Unauthorized");
+        return makeErrorResponse(exception, "401 Unauthorized");
     }
 
     @ExceptionHandler(Error_403.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public Map<String, Object> handlerError_403(Error_403 exception) {
-        return makeErrorResponse(exception, "Forbidden");
+        return makeErrorResponse(exception, "403 Forbidden");
     }
 
     @ExceptionHandler(Error_404.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, Object> handlerError_404(Error_404 exception) {
-        return makeErrorResponse(exception, "Not Found");
+        return makeErrorResponse(exception, "404 Not Found");
     }
 
     @ExceptionHandler(Error_500.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, Object> handlerError_500(Error_500 exception) {
-        return makeErrorResponse(exception, "Internal Server Error");
+        return makeErrorResponse(exception, "500 Internal Server Error");
     }
 
     private Map<String, Object> makeErrorResponse(ServiceException exception, String error) {
