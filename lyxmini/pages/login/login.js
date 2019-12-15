@@ -75,7 +75,7 @@ Page({
     } else {
       // 这里修改成跳转的页面
       wx.request({
-        url: app.globalData.baseUrl + "/login",
+        url: app.globalData.endPoint + "/login",
         method: "POST",
         data: {
           username: this.data.username,
@@ -83,8 +83,10 @@ Page({
         },
         success(res) {
           console.log(res.data);
-
           wx.setStorageSync("Access-Token", res.data.access_token);
+          wx.navigateTo({
+            url: "../index/index"
+          });
         }
       });
       wx.showToast({
