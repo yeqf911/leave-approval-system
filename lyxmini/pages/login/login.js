@@ -69,11 +69,11 @@ Page({
     if (this.data.username.length == 0 || this.data.password.length == 0) {
       wx.showToast({
         title: "用户名和密码不能为空",
-        icon: "loading",
+        icon: "none",
         duration: 1000
       });
     } else {
-      // 这里修改成跳转的页面
+      // 这里请求登录接口
       wx.request({
         url: app.globalData.endPoint + "/login",
         method: "POST",
@@ -82,18 +82,33 @@ Page({
           password: this.data.password
         },
         success(res) {
+          wx.hideLoading();
+          wx.showToast({
+            title: "登录成功",
+            icon: "success",
+            duration: 2000
+          });
           console.log(res.data);
           wx.setStorageSync("Access-Token", res.data.access_token);
           wx.navigateTo({
             url: "../index/index"
           });
-        }
+        },
+        fail: (res => {
+          if (this._errorHandler != null) {
+            this._errorHandler(res)
+          }
+          wx.hideLoading();
+          wx.showToast({
+            title: "登录异常",
+            icon: "none",
+            duration: 1000
+          });
+        })
       });
-      wx.showToast({
-        title: "登录成功",
-        icon: "success",
-        duration: 2000
-      });
+      wx.showLoading({
+        title: "登录中"
+      });  
     }
   }
 });
