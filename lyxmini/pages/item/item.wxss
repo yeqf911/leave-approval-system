@@ -1,0 +1,12 @@
+/* pages/item/item.wxss */
+.weui-form-preview__value_in-hd {
+  font-size: 32rpx;
+}
+
+.update {
+  margin-top: 40px;
+}
+
+.stepper {
+  margin-top: 20px;
+}

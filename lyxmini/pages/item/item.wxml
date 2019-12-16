@@ -1,0 +1,61 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">提交日期</view>
+                    <view class="weui-form-preview__value_in-hd">{{leaveRequest.submitDate}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">姓名</view>
+                    <view class="weui-form-preview__value">{{leaveRequest.creatorName}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">请假类型</view>
+                    <view class="weui-form-preview__value">{{leaveRequest.type}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">请假理由</view>
+                    <view class="weui-form-preview__value">{{leaveRequest.reason}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">请假课程</view>
+                    <view class="weui-form-preview__value">{{leaveRequest.courseName}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">请假天数</view>
+                    <view class="weui-form-preview__value">{{leaveRequest.leaveDays}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">开始日期</view>
+                    <view class="weui-form-preview__value">{{leaveRequest.leaveSince}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">结束日期</view>
+                    <view class="weui-form-preview__value">{{leaveRequest.leaveUntil}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="stepper">
+            <i-steps>
+                <i-step status="{{instructorStatus}}">
+                    <view slot="title">{{instructor}}</view>
+                    <view slot="content">辅导员审批</view>
+                </i-step>
+                <i-step status="{{academyStatus}}">
+                    <view slot="title">{{academy}}</view>
+                    <view slot="content">学院审批</view>
+                </i-step>
+                <i-step status="{{teacherStatus}}">
+                    <view slot="title">{{teacher}}</view>
+                    <view slot="content">任课教师审批</view>
+                </i-step>
+            </i-steps>
+        </view>
+        <view class="update">
+            <button class="weui-btn" type="primary" disabled="{{updateBtnHidden}}">修改</button>
+        </view>
+    </view>
+</view>

@@ -64,7 +64,7 @@ public class LeaveRequestController {
     public ResponseEntity<LeaveRequest> getLeaveRequest(@PathVariable("id") int id, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
         LeaveRequest leaveRequest = leaveRequestService.getLeaveRequestById(id);
-        if (leaveRequest.getCreatorId() != currentUser.getId()) {
+        if (currentUser.getRole().equals(User.ROLE_STUDENT) && leaveRequest.getCreatorId() != currentUser.getId()) {
             throw new Error_404("leave request not found");
         }
         return ResponseEntity.ok().body(leaveRequest);

@@ -1,0 +1,15 @@
+<view class="page">
+    <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{listData}}" wx:key="k">
+            <navigator url="../item/item?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{item.submitDate}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    <i-tag class="i-tags" name="审批状态" color="{{item.statusColor}}">
+                        {{item.status}}
+                    </i-tag>
+                    <i-tag class="i-tags" name="请假类型" color="default">{{item.type}}</i-tag>
+                </view>
+            </navigator>
+        </block>
+    </view>
+</view>
