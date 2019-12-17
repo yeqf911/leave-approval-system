@@ -21,6 +21,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.loadData();
+  },
+
+  loadData: function() {
     app
       .get("/leave_requests", {})
       .then(res => {
@@ -41,19 +45,17 @@ Page({
 
         this.setData({
           listData: res,
-          type: options.type,
           loading: false
         });
       })
       .catch(err => {
         wx.showToast({
-          title: "获取请假条异常",
+          title: "获取请假条异常" + err.message,
           icon: "none",
           duration: 1000
         });
       });
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -62,7 +64,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+    this.loadData();
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

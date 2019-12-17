@@ -332,7 +332,7 @@ export default {
           console.log(res.data);
           console.log(this.editRowIndex);
 
-          this.leaveRequestsList.splice(this.editRowIndex, 1, res.data);
+          this.leaveRequestsList.splice(this.editRowIndex - 1, 1, res.data);
           this.$message.success("修改请假条成功");
         })
         .catch(err => {

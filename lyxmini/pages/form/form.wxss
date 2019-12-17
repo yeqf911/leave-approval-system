@@ -1,0 +1,8 @@
+/* pages/form/form.wxss */
+.weui-cell_select {
+  margin-left: 16px;
+}
+
+.update {
+  margin-top: 20px;
+}

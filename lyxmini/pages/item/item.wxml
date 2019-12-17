@@ -55,7 +55,9 @@
             </i-steps>
         </view>
         <view class="update">
-            <button class="weui-btn" type="primary" disabled="{{updateBtnHidden}}">修改</button>
+            <button bindtap="updateLr" class="weui-btn" type="primary" disabled="{{updateBtnHidden}}">
+                修改
+            </button>
         </view>
     </view>
 </view>

@@ -89,7 +89,7 @@ Page({
           });
           wx.setStorageSync("Access-Token", res.access_token);
           wx.navigateTo({
-            url: "../index/index"
+            url: "../list/list"
           });
         })
         .catch(res => {
