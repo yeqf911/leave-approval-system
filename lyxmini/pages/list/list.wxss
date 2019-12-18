@@ -1,3 +1,7 @@
 .i-tags {
   margin-left: 4px;
 }
+
+.addlr {
+  margin-top: 20px;
+}

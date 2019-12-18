@@ -1,0 +1,59 @@
+<!-- pages/form/form.wxml -->
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+                <view class="weui-label">请假类型</view>
+            </view>
+            <view class="weui-cell__bd">
+                <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
+                    <view class="weui-select">{{types[typeIndex]}}</view>
+                </picker>
+            </view>
+        </view>
+        <!-- </view> -->
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <view class="weui-label">请假理由</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="bindChangeReason" placeholder="请输入请假理由" value="{{reason}}" />
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+                <view class="weui-label">请假课程</view>
+            </view>
+            <view class="weui-cell__bd">
+                <picker bindchange="bindCourseChange" value="{{courseIndex}}" range="{{courses}}">
+                    <view class="weui-select">{{courses[courseIndex]}}</view>
+                </picker>
+            </view>
+        </view>
+        <view class="weui-cell ">
+            <view class="weui-cell__hd">
+                <view class="weui-label">开始日期</view>
+            </view>
+            <view class="weui-cell__bd">
+                <picker mode="date" value="{{leaveSince}}" bindchange="bindLeaveSinceChange">
+                    <view class="weui-input">{{leaveSince}}</view>
+                </picker>
+            </view>
+        </view>
+        <view class="weui-cell ">
+            <view class="weui-cell__hd">
+                <view class="weui-label">结束日期</view>
+            </view>
+            <view class="weui-cell__bd">
+                <picker mode="date" value="{{leaveUntil}}" bindchange="bindLeaveUntilChange">
+                    <view class="weui-input">{{leaveUntil}}</view>
+                </picker>
+            </view>
+        </view>
+    </view>
+    <view class="update">
+        <button bindtap="submitUpdate" class="weui-btn" type="primary" disabled="{{updateBtnHidden}}">
+            提交
+        </button>
+    </view>
+</view>

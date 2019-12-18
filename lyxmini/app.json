@@ -5,7 +5,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/item/item",
-    "pages/form/form"
+    "pages/form/form",
+    "pages/addform/addform"
   ],
   "window": {
     "backgroundTextStyle": "light",
