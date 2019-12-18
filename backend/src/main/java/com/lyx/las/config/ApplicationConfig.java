@@ -20,7 +20,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
         // 添加拦截器，配置拦截地址
         registry.addInterceptor(authenticationInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login", "/favicon.ico");
+                .excludePathPatterns("/login", "/favicon.ico"); // 将登陆的请求排除在拦截器之外，因为登录请求无法传入Access-Token
     }
 
     @Bean

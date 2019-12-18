@@ -3,19 +3,33 @@ package com.lyx.las.model;
 import java.util.Date;
 
 public class LeaveRequest {
+    // 数据库中的id
     private int id;
+    // 创建请假条的用户（学生）的id
     private int creatorId;
+    // 创建请假条的学生姓名
     private String creatorName;
+    // 指派给的审核人的id
     private int assignToId;
+    // 该请假条请假的课程id
     private int courseId;
+    // 该请假条请假的课程名称
     private String courseName;
+    // 提交的日期
     private Date submitDate;
+    // 请假开始日期
     private Date leaveSince;
+    // 请假结束日期
     private Date leaveUntil;
+    // 没什么用
     private String period;
+    // 请假的天数
     private int leaveDays;
+    // 请假的类型（病假，事假，婚假，丧假）
     private String type;
+    // 请假的理由
     private String reason;
+    // 该请假条所处的状态（例如现阶段轮到谁审核了）
     private Status status;
 
     public int getId() {

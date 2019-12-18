@@ -32,6 +32,11 @@ public class LeaveRequestController {
     @Autowired
     private CourseMapper courseMapper;
 
+    /**
+     * 获取当前用户下所有的请假条
+     * @param authentication
+     * @return 请假条列表
+     */
     @GetMapping
     public ResponseEntity<List<LeaveRequest>> getUserLeaveRequests(Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
@@ -47,6 +52,12 @@ public class LeaveRequestController {
         return ResponseEntity.ok().body(leaveRequests);
     }
 
+    /**
+     * 添加一个请假条
+     * @param leaveRequest
+     * @param authentication
+     * @return
+     */
     @PostMapping
     public ResponseEntity<LeaveRequest> addLeaveRequests(@RequestBody LeaveRequest leaveRequest, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
@@ -60,6 +71,12 @@ public class LeaveRequestController {
         return new ResponseEntity<>(leaveRequest, HttpStatus.CREATED);
     }
 
+    /**
+     * 根据ID查询一个请假条
+     * @param id
+     * @param authentication
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<LeaveRequest> getLeaveRequest(@PathVariable("id") int id, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
@@ -70,6 +87,13 @@ public class LeaveRequestController {
         return ResponseEntity.ok().body(leaveRequest);
     }
 
+    /**
+     * 根据ID修改一个请假条
+     * @param id 请假条在数据库中的ID
+     * @param userInfo 请假条更新的数据form表单
+     * @param authentication 鉴权
+     * @return 返回更新后的请假条数据
+     */
     @PutMapping("/{id}")
     @CrossOrigin
     public ResponseEntity<LeaveRequest> updateLeaveRequest(@PathVariable("id") int id,
@@ -89,6 +113,7 @@ public class LeaveRequestController {
             throw new Error_403("you can not access leave request which not belongs to you");
         }
 
+        // 获取参数中需要修改的项
         String leaveSince = userInfo.getOrDefault("leaveSince", Utils.date2String(leaveRequest.getLeaveSince()));
         String leaveUntil = userInfo.getOrDefault("leaveUntil", Utils.date2String(leaveRequest.getLeaveUntil()));
         String courseId = userInfo.getOrDefault("courseId", leaveRequest.getCourseId() + "");
@@ -113,6 +138,12 @@ public class LeaveRequestController {
         return ResponseEntity.ok().body(leaveRequest);
     }
 
+    /**
+     * 根据ID删除一个请假条
+     * @param id
+     * @param authentication
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteLeaveRequest(@PathVariable("id") int id, Authentication authentication) {
         LeaveRequest leaveRequest = leaveRequestService.getLeaveRequestById(id);
@@ -130,13 +161,23 @@ public class LeaveRequestController {
         return ResponseEntity.ok().body("success");
     }
 
+    /**
+     * 获取所有的请假条信息，该接口提供给管理员和辅导员角色使用的，学生角色无法调用该接口
+     * @param authentication
+     * @return
+     */
     @GetMapping("/all")
-    @PreAuthorize("!hasRole('Student')")
+    @PreAuthorize("!hasRole('Student')") // hasRole 就是控制那些角色可以调用该接口
     public ResponseEntity<List<LeaveRequest>> getAllLeaveRequests(Authentication authentication) {
         List<LeaveRequest> leaveRequestList = leaveRequestService.getAllLeaveRequests();
         return ResponseEntity.ok().body(leaveRequestList);
     }
 
+    /**
+     * 获取指派给自己审核的请假条列表，学生角色无法调用
+     * @param authentication
+     * @return
+     */
     @GetMapping("/assigned")
     @PreAuthorize("hasRole('Admin') or hasRole('Teacher') or hasRole('Instructor')")
     public ResponseEntity<List<LeaveRequest>> getLeaveRequestsAssignedToMe(Authentication authentication) {
@@ -145,6 +186,12 @@ public class LeaveRequestController {
         return ResponseEntity.ok().body(leaveRequestList);
     }
 
+    /**
+     * 审核通过一个指定ID的请假条，学生角色无法调用
+     * @param id 请假条ID
+     * @param authentication
+     * @return
+     */
     @PutMapping("/{id}/approval")
     @PreAuthorize("hasRole('Admin') or hasRole('Teacher') or hasRole('Instructor')")
     public ResponseEntity<LeaveRequest> approvalLeaveRequest(@PathVariable("id") int id, Authentication authentication) {
