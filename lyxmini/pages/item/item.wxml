@@ -55,8 +55,13 @@
             </i-steps>
         </view>
         <view class="update">
-            <button bindtap="updateLr" class="weui-btn" type="primary" disabled="{{updateBtnHidden}}">
+            <button bindtap="updateLr" class="weui-btn" type="primary" disabled="{{hiddenUpdate}}">
                 修改
+            </button>
+        </view>
+        <view class="approval">
+            <button bindtap="approvalLr" class="weui-btn" type="primary" disabled="{{hiddenApproval}}">
+                审批
             </button>
         </view>
     </view>

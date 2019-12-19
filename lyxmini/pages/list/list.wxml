@@ -12,7 +12,7 @@
             </navigator>
         </block>
     </view>
-    <view class="addlr">
+    <view hidden="{{hiddenAdd}}" class="addlr">
         <button bindtap="addlr" class="weui-btn" type="primary">添加</button>
     </view>
 </view>

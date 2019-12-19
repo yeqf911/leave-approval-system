@@ -1,6 +1,6 @@
 //app.js
 App({
-  onLaunch: function() {
+  onLaunch: function () {
     // 展示本地存储能力
     // 设置服务器地址
     var logs = wx.getStorageSync("logs") || [];
@@ -40,7 +40,8 @@ App({
     myUserInfo: null
   },
 
-  post: function(url, data) {
+  // 封装 post 请求
+  post: function (url, data) {
     var promise = new Promise((resolve, reject) => {
       var that = this;
       var postData = data;
@@ -52,14 +53,14 @@ App({
           "Content-Type": "application/json",
           "Access-Token": wx.getStorageSync("Access-Token") || ""
         },
-        success: function(res) {
+        success: function (res) {
           if (res.statusCode >= 200 && res.statusCode < 400) {
             resolve(res.data);
           } else {
             reject(res.data);
           }
         },
-        fail: function(err) {
+        fail: function (err) {
           reject("网络错误");
         }
       });
@@ -67,7 +68,7 @@ App({
     return promise;
   },
 
-  get: function(url, data) {
+  get: function (url, data) {
     var promise = new Promise((resolve, reject) => {
       var that = this;
       var postData = data;
@@ -79,14 +80,14 @@ App({
           "Content-Type": "application/json",
           "Access-Token": wx.getStorageSync("Access-Token") || ""
         },
-        success: function(res) {
+        success: function (res) {
           if (res.statusCode >= 200 && res.statusCode < 400) {
             resolve(res.data);
           } else {
             reject(res.data);
           }
         },
-        fail: function(err) {
+        fail: function (err) {
           reject("网络错误");
         }
       });
@@ -94,7 +95,7 @@ App({
     return promise;
   },
 
-  put: function(url, data) {
+  put: function (url, data) {
     var promise = new Promise((resolve, reject) => {
       var that = this;
       var postData = data;
@@ -106,14 +107,14 @@ App({
           "Content-Type": "application/json",
           "Access-Token": wx.getStorageSync("Access-Token") || ""
         },
-        success: function(res) {
+        success: function (res) {
           if (res.statusCode >= 200 && res.statusCode < 400) {
             resolve(res.data);
           } else {
             reject(res.data);
           }
         },
-        fail: function(err) {
+        fail: function (err) {
           reject("网络错误");
         }
       });
@@ -121,7 +122,7 @@ App({
     return promise;
   },
 
-  delete: function(url, data) {
+  delete: function (url, data) {
     var promise = new Promise((resolve, reject) => {
       var that = this;
       var postData = data;
@@ -133,14 +134,14 @@ App({
           "Content-Type": "application/json",
           "Access-Token": wx.getStorageSync("Access-Token") || ""
         },
-        success: function(res) {
+        success: function (res) {
           if (res.statusCode >= 200 && res.statusCode < 400) {
             resolve(res.data);
           } else {
             reject(res.data);
           }
         },
-        fail: function(err) {
+        fail: function (err) {
           reject("网络错误");
         }
       });

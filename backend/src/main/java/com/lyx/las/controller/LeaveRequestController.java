@@ -23,7 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/leave_requests")
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:12063"})
+@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:32001"})
 public class LeaveRequestController {
 
     @Autowired

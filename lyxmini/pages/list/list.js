@@ -14,7 +14,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    listData: []
+    listData: [],
+    hiddenAdd: true
   },
 
   /**
@@ -22,8 +23,14 @@ Page({
    */
   onLoad: function (options) {
     this.loadData();
+    if (app.globalData.userRole == "Student") {
+      this.setData({
+        hiddenAdd: false
+      })
+    }
   },
 
+  // 初始化数据，通过接口请求请假条列表，以显示到列表页
   loadData: function () {
     app
       .get("/leave_requests", {})
@@ -72,6 +79,11 @@ Page({
    */
   onShow: function () {
     this.loadData();
+    if (app.globalData.userRole == "Student") {
+      this.setData({
+        hiddenAdd: false
+      })
+    }
   },
 
   /**

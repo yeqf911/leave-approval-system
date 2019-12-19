@@ -75,6 +75,7 @@ Page({
    */
   onShareAppMessage: function () { },
 
+  // 获取课程列表
   getCourses: function () {
     app
       .get("/courses")
@@ -150,6 +151,7 @@ Page({
     return form;
   },
 
+  // 发送创建请假条的请求
   submitUpdate: function () {
     var formData = this.makeForm();
     var url = "/leave_requests"

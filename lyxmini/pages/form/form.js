@@ -34,7 +34,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var leaveRequest = JSON.parse(options.leaveRequest);
     this.setData({
       leaveRequest: leaveRequest
@@ -53,39 +53,39 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {},
+  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function () { },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {},
+  onHide: function () { },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {},
+  onUnload: function () { },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {},
+  onPullDownRefresh: function () { },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {},
+  onReachBottom: function () { },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {},
+  onShareAppMessage: function () { },
 
-  getCourses: function() {
+  getCourses: function () {
     app
       .get("/courses")
       .then(res => {
@@ -106,7 +106,7 @@ Page({
       });
   },
 
-  bindTypeChange: function(e) {
+  bindTypeChange: function (e) {
     console.log("picker type 发生选择改变，携带值为", e.detail.value);
 
     this.setData({
@@ -114,38 +114,38 @@ Page({
     });
   },
 
-  bindCourseChange: function(e) {
+  bindCourseChange: function (e) {
     this.setData({
       courseIndex: e.detail.value
     });
   },
 
-  bindLeaveSinceChange: function(e) {
+  bindLeaveSinceChange: function (e) {
     this.setData({
       leaveSince: e.detail.value
     });
   },
 
-  bindLeaveUntilChange: function(e) {
+  bindLeaveUntilChange: function (e) {
     this.setData({
       leaveUntil: e.detail.value
     });
   },
 
-  bindChangeReason: function(e) {
+  bindChangeReason: function (e) {
     this.setData({
       reason: e.detail.value
     });
   },
 
-  getDiffbetweenDate: function(d1, d2) {
+  getDiffbetweenDate: function (d1, d2) {
     var dateStart = new Date(d1);
     var dateEnd = new Date(d2);
     var difValue = (dateEnd - dateStart) / (1000 * 60 * 60 * 24);
     return difValue;
   },
 
-  makeForm: function() {
+  makeForm: function () {
     var form = {
       type: this.data.types[this.data.typeIndex],
       reason: this.data.reason,
@@ -172,12 +172,13 @@ Page({
     return form;
   },
 
-  submitUpdate: function() {
+  submitUpdate: function () {
     var formData = this.makeForm();
     var url = "/leave_requests/" + this.data.leaveRequest.id;
     app
       .put(url, formData)
       .then(res => {
+        // 更新成功后返回上一页
         wx.navigateBack({
           delta: 1
         });
